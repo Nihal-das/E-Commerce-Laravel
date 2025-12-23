@@ -2,13 +2,13 @@
 
 
     <div class="bg-gray-900 min-h-screen py-16 px-8 pt-30">
-        <div class="pt-20 flex justify-center bg-gradient-to-r from-black via-gray-900 to-black">
+        
         @if (session('success'))
             <div class="rounded-lg bg-green-600 px-6 py-3 text-white text-center shadow-lg animate-bounce">
                 {{ session('success') }}
             </div>
         @endif
-    </div>
+   
 
      <div class="overflow-x-auto rounded-xl border border-gray-700">
             <table class="w-full text-sm text-white">
