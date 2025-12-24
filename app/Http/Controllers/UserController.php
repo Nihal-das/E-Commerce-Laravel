@@ -31,6 +31,6 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.edit', $user->id)
-            ->with('success', 'Item updated successfully');
+            ->with('success', 'Profile updated successfully');
     }
 }

@@ -22,8 +22,8 @@
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
                 <a href="/" class="text-sm/6 font-semibold text-white {{ request()->is('/') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}">Home</a>
-                <a href="#" class="text-sm/6 font-semibold text-white">Features</a>
-                <a href="#" class="text-sm/6 font-semibold text-white">Marketplace</a>
+                <a href="/uploads" class="text-sm/6 font-semibold text-white {{ request()->is('uploads') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}">Upload</a>
+                <a href="" class="text-sm/6 font-semibold text-white {{ request()->is('#') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}">Marketplace</a>
                 
                 {{-- <h1 class="font-serif text-5xl font-semibold tracking-tight text-balance text-white">Shopping Spree</h1> --}}
             </div>
@@ -58,6 +58,7 @@
 
        @if(auth()->user() && auth()->user()->role === 1)
        <a href="{{ route('items.create') }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Add Item</a>
+       <a href="/uploads" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">upload file</a>
        <a href="/admin" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Dashboard</a>
        @endif
       

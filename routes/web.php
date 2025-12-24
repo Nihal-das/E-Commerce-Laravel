@@ -30,7 +30,11 @@ Route::patch('/item/edit/{item}', [ItemController::class, 'update'])
     ->name('items.update')
     ->middleware('auth');
 
+Route::get('/uploads', [ItemController::class, 'show_upload'])
+    ->middleware('auth');
 
+Route::post('/uploads', [ItemController::class, 'upload'])
+    ->name('items.upload');
 
 
 ///////////////////////CART////////////////////////////////
