@@ -9,13 +9,13 @@
     </div>
 
     <!-- Item Section -->
-    <div class="flex flex-col lg:flex-row justify-center items-start gap-16 bg-gradient-to-r from-black via-gray-900 to-black px-12 pb-32 pt-32 overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-center items-start gap-16 bg-gradient-to-r from-black via-gray-900 to-black min-h-screen px-12 py-16 pt-40  overflow-hidden">
         
         <!-- Item Image -->
-        <div class="w-full lg:w-[28rem] bg-gray-800 shadow-2xl rounded-2xl overflow-hidden mt-20">
+        <div class="w-full h-[24rem] lg:w-[28rem] bg-gray-800 shadow-2xl rounded-2xl overflow-hidden my-auto">
             <img src="{{ asset('storage/' . $item->image_path) }}" 
                  alt="{{ $item->item_name }}" 
-                 class="w-full h-[22rem] object-cover hover:scale-105 transition-transform duration-300" />
+                 class="w-full h-[24rem] object-cover hover:scale-105 transition-transform duration-300" />
         </div>
 
         <!-- Item Details -->

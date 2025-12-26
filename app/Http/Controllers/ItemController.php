@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 use Nette\Utils\Image;
 use Illuminate\Support\Facades\Validator;
 
+use App\Exports\ItemsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class ItemController extends Controller
@@ -210,5 +215,31 @@ class ItemController extends Controller
                 $e->getMessage(),
             ]);
         }
+    }
+
+
+
+    public function exportExcel()
+    {
+        return Excel::download(new ItemsExport, 'items.xlsx');
+    }
+
+
+    public function exportPdf()
+    {
+        $items = DB::table('items')
+            ->select(
+                'items.id',
+                'items.item_name',
+                'items.price',
+                'items.stock_quantity'
+            )
+            ->orderBy('items.id')
+            ->get();
+
+        $pdf = Pdf::loadView('pdf.items', compact('items'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->download('items.pdf');
     }
 }

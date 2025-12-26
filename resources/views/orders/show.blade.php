@@ -15,8 +15,14 @@
                 <div class="mb-4 flex items-center justify-between rounded-lg bg-gray-900 p-4">
 
                     <div>
+                        <div class="flex flex-1/2">
+                            <img
+                            src="{{ asset('storage/' . $orderItem->item->image_path) }}" alt="{{ $orderItem->item->item_name }}"
+                            class="h-24 w-24     rounded-2xl object-cover"
+                        />
+                        <div class="pl-10 pt-3 grid-cols-1">
                         <p class="text-lg font-semibold text-white">
-                            {{ $orderItem->item->name }}
+                            {{ $orderItem->item->item_name }}
                         </p>
 
                         <p class="text-sm text-gray-400">
@@ -26,6 +32,8 @@
                         <p class="text-sm text-gray-400">
                             Returned: {{ $orderItem->returned_quantity }}
                         </p>
+                        </div>
+                        </div>
                     </div>
 
                     {{-- RETURN BUTTON --}}

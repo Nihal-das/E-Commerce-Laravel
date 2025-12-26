@@ -34,7 +34,18 @@ Route::get('/uploads', [ItemController::class, 'show_upload'])
     ->middleware('auth');
 
 Route::post('/uploads', [ItemController::class, 'upload'])
+    ->middleware('auth')
     ->name('items.upload');
+
+Route::get('/items/export/excel', [ItemController::class, 'exportExcel'])
+    ->middleware('auth')
+    ->name('items.download_excel');
+
+Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])
+    ->middleware('auth')
+    ->name('items.download_pdf');;
+
+
 
 
 ///////////////////////CART////////////////////////////////

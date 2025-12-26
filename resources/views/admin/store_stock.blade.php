@@ -9,6 +9,20 @@
             </div>
         @endif
    
+<div class="flex flex-initial space-x-8">    
+    <a href="{{ route('items.download_excel') }}"
+            class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md shadow-md transition duration-300 ease-in-out mb-10">
+            Download Excel
+        </a>
+
+         <a href="{{ route('items.download_pdf') }}"
+            class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md shadow-md transition duration-300 ease-in-out mb-10">
+            Download PDF
+        </a>
+</div>
+     
+
+   
 
      <div class="overflow-x-auto rounded-xl border border-gray-700">
             <table class="w-full text-sm text-white">
@@ -64,6 +78,9 @@
                 </tbody>
             </table>
             </div>
+
+           
+
     </div>
 
 </x-layout>

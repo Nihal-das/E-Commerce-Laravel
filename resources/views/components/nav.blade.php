@@ -2,9 +2,9 @@
     <header class=" fixed inset-x-0 top-0 z-50 shadow-lg rounded-b-xl">
         <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
             <div class="flex lg:flex-1">
-                <a href="#" class="-m-1.5 p-1.5">
+                <a href="https://nihal-das.vercel.app/" class="-m-2 p-1.5 -mt-4">
                     <span class="sr-only">Your Company</span>
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="" class="h-8 w-auto" />
+                    <img class="h-10 rounded-xl"  src="https://raw.githubusercontent.com/Nihal-das/Assets/main/Nihal_das.png" alt="Nihal Das">
                 </a>
             </div>
             <div class="flex lg:hidden">
@@ -48,7 +48,7 @@
 
 <el-dropdown class="inline-block">
   <button>
-    <a  class=" {{ request()->is('/profile') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}"><img src="{{ asset('storage/' . 'items/user.png') }}" alt="profile Image" class="h-10 w-10 mb-2 bg-amber-50 rounded-full"></a>
+    <a  class=" {{ request()->is('profile') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}"><img src="{{ asset('storage/' . 'items/user.png') }}" alt="profile Image" class="h-10 w-10 mb-2 bg-amber-50 rounded-full"></a>
   </button>
 
   <el-menu anchor="bottom end" popover class="w-56 origin-top-right rounded-md bg-gray-800 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">

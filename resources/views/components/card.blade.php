@@ -1,7 +1,17 @@
                     @if (session('success'))
-            <div class="rounded-lg bg-green-600 px-6 py-3 text-white text-center shadow-lg animate-bounce">
+            <div id="success-message" class="rounded-lg bg-green-600 px-6 py-3 text-white text-center shadow-lg animate-bounce duration-150">
                 {{ session('success') }}
             </div>
+
+            <script>
+        setTimeout(() => {
+            const el = document.getElementById('success-message');
+            if (el) {
+                el.style.display = 'none';
+            }
+        }, 3000);
+    </script>
+
      @endif
 <div class="grid grid-cols-4 gap-6">
                 @foreach ($items as $item)
@@ -56,7 +66,8 @@
             <div class=" flex justify-center ">
                  @if ($items->isEmpty())
     <p class=" mt-10 text-center text-3xl text-gray-400">
-        No items found 😔 Try a different keyword.
+        No items found, Try a different keyword.
     </p>
 @endif
             </div>
+            

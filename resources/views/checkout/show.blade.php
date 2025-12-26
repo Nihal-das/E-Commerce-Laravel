@@ -5,7 +5,11 @@
         <div class="mx-auto max-w-4xl space-y-8">
 
            
-
+             @if (session('error'))
+               <div class="rounded-lg bg-green-600 px-6 py-3 text-white text-center shadow-lg animate-bounce">
+                {{ session('success') }}
+            </div>
+            @endif
             <h2 class="text-3xl font-bold text-white">
                 Review your order
             </h2>
@@ -13,13 +17,7 @@
             <!-- CART ITEMS -->
             <div class="space-y-4">
                 @foreach ($cartItems as $cartItem)
-            <div class="pt-20 flex justify-center bg-gradient-to-r from-black via-gray-900 to-black">
-                 @if (session('error'))
-               <div class="rounded-lg bg-green-600 px-6 py-3 text-white text-center shadow-lg animate-bounce">
-                {{ session('success') }}
-            </div>
-            @endif
-            </div>
+           
                     <div class="flex justify-between items-center
                                 rounded-xl bg-gray-800 p-5">
 
