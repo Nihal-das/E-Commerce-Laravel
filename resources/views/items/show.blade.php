@@ -9,7 +9,7 @@
     </div>
 
     <!-- Item Section -->
-    <div class="flex flex-col lg:flex-row justify-center items-start gap-16 bg-gradient-to-r from-black via-gray-900 to-black min-h-screen px-12 py-16 pt-40  overflow-hidden">
+    <div class="flex flex-col lg:flex-row justify-center items-start gap-16 bg-gradient-to-r from-black via-gray-900 to-black min-h-screen px-12 overflow-y-hidden">
         
         <!-- Item Image -->
         <div class="w-full h-[24rem] lg:w-[28rem] bg-gray-800 shadow-2xl rounded-2xl overflow-hidden my-auto">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Item Details -->
-        <div class="flex flex-col gap-6 max-w-xl">
+        <div class="flex flex-col gap-6 max-w-xl my-auto">
             <h1 class="text-4xl font-bold text-white tracking-wide">
                 {{ $item->item_name }}
             </h1>
