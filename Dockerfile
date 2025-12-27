@@ -1,61 +1,44 @@
-# Base PHP + Apache image
+# ---------- Base Image ----------
 FROM php:8.2-apache
 
-# Composer memory limit
 ENV COMPOSER_MEMORY_LIMIT=-1
+WORKDIR /var/www/html
 
-# Install system dependencies and PHP extensions safely
+# ---------- 1. Install PHP extensions & system deps safely ----------
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    unzip \
-    git \
-    curl \
-    libonig-dev \
-    libxml2-dev \
-    libzip-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    default-mysql-client \
-    gnupg \
-    pkg-config \
-    libssl-dev \
+    unzip git curl pkg-config libssl-dev default-mysql-client \
+    libonig-dev libxml2-dev libzip-dev \
+    libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install pdo_mysql zip exif pcntl bcmath opcache gd tokenizer \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js 20 + latest npm
+# ---------- 2. Install Node.js 20 + npm safely ----------
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache rewrite module
+# ---------- 3. Enable Apache rewrite ----------
 RUN a2enmod rewrite
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Copy composer files first (cache optimization)
+# ---------- 4. Install Composer ----------
 COPY composer.json composer.lock ./
-
-# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install PHP dependencies
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction
 
-# Copy rest of the application
+# ---------- 5. Copy App ----------
 COPY . .
 
-# Set Laravel permissions
+# ---------- 6. Fix Permissions ----------
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Install frontend dependencies and build assets
+# ---------- 7. Frontend Build ----------
 RUN npm install && npm run build
 
-# Expose Apache port
+# ---------- 8. Expose Port ----------
 EXPOSE 80
 
-# Start Apache in foreground
+# ---------- 9. Start Apache ----------
 CMD ["apache2-foreground"]
