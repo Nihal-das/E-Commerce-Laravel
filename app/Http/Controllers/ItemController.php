@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\Image;
 use Illuminate\Support\Facades\Validator;
-
 use App\Exports\ItemsExport;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -21,8 +21,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class ItemController extends Controller
 {
 
-    public function show_all(Request $request)
+    public function show_all(Request $request, User $user)
     {
+        $user = User::findOrFail(Auth::id());
 
         $query = Item::where('status', 1)->latest();
 
@@ -37,6 +38,7 @@ class ItemController extends Controller
         return view('components.hero', [
             'items' => $all_items,
             'cartCount' => $cartCount,
+            'user' => $user,
         ]);
     }
 

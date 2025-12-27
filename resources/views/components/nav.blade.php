@@ -87,7 +87,7 @@
                         <div class="flex items-center justify-between">
                             <a href="#" class="-m-1.5 p-1.5">
                                 <span class="sr-only">Your Company</span>
-                                <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="" class="h-8 w-auto" />
+                                <img src="https://raw.githubusercontent.com/Nihal-das/Assets/main/Nihal_das.png" alt="Nihal Das" class="h-8 w-auto" />
                             </a>
                             <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-200">
                                 <span class="sr-only">Close menu</span>
@@ -107,23 +107,26 @@
                         <div class="mt-6 flow-root">
                             <div class="-my-6 divide-y divide-white/10">
                                 <div class="space-y-2 py-6">
-                                    <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                                        >Product</a
+                                    <a href="/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5 {{ request()->is('/') ? 'bg-black text-white' : ''}}"
+                                        >Home</a
                                     >
-                                    <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                                        >Features</a
+
+                                    <a href="/profile/{{ auth()->user()->id }}" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5 {{ request()->is('profile/' . auth()->user()->id) ? 'bg-black text-white' : ''}}"
+                                        >My Profile</a
                                     >
-                                    <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                                        >Marketplace</a
+
+                                   <a href="{{ route('orders.index') }}" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5 {{ request()->is('orders') ? 'bg-black text-white' : ''}}"
+                                        >My Orders</a
                                     >
-                                    <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                                        >Company</a
-                                    >
+
+                                   
                                 </div>
                                 <div class="py-6">
-                                    <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
-                                        >Log in</a
-                                    >
+                                    
+                                    <form method="post" action="/logout">
+                                                @csrf
+                                    <button type="submit" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5">Log out</button>
+                                </form>
                                 </div>
                             </div>
                         </div>

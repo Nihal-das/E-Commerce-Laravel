@@ -10,8 +10,9 @@
             </div>
 
             <!-- HERO CONTENT -->
-            <div class="mx-auto max-w-2xl py-24 text-center sm:py-32 lg:py-48">
-                <h1 class="text-5xl font-semibold text-white sm:text-7xl">Let's fill your basket</h1>
+            <div class="mx-auto max-w-3xl py-24 text-center sm:py-32 lg:py-48">
+                <h1 class="font-serif text-5xl font-semibold text-white sm:text-7xl mb-2">Hello, {{ $user->name }}</h1>
+                <h1 class="font-serif text-5xl font-semibold text-white sm:text-7xl">Let's fill your basket</h1>
                 <form method="GET" action="{{ route('items.show') }}">
                     @csrf
                     <input
