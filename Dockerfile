@@ -1,7 +1,8 @@
-# PHP 8.2 + Apache
 FROM php:8.2-apache
 
-# Install system dependencies
+ENV COMPOSER_MEMORY_LIMIT=-1
+
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
@@ -13,13 +14,13 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client \
     && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath opcache
 
-# Enable Apache mod_rewrite
+# Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Set working directory
+# Working directory
 WORKDIR /var/www/html
 
-# Copy project files
+# Copy project
 COPY . .
 
 # Install Composer
@@ -28,14 +29,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node and build Vue assets
+# Build Vue frontend
 RUN npm install
 RUN npm run build
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port for Render
+# Expose port
 EXPOSE 10000
 
 # Start Laravel
