@@ -52,5 +52,43 @@ class CartController extends Controller
         return back()->with('success', 'Item added to cart');
     }
 
-    
+    public function destroy(Cart $cart)
+    {
+        
+        if ($cart->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $cart->delete();
+
+        return back()->with('success', 'Item removed from cart');
+    }
+
+
+    public function increment(Cart $cart)
+    {
+        if ($cart->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $cart->quantity++;
+        $cart->save();
+        return back();
+    }
+
+    public function decrement(Cart $cart)
+    {
+        if ($cart->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($cart->quantity > 1) {
+            $cart->quantity--;
+            $cart->save();
+        } else {
+            $cart->delete(); // if quantity: 0  = remove
+        }
+
+        return back();
+    }
 }

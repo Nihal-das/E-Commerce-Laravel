@@ -60,6 +60,25 @@ Route::post('/cart/add/{item}', [CartController::class, 'add'])
     ->name('cart.add')
     ->middleware('auth');
 
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])
+    ->name('cart.destroy')
+    ->middleware('auth');
+
+Route::post('/cart/{cart}/increment', [CartController::class, 'increment'])
+    ->name('cart.increment')
+    ->middleware('auth');
+
+Route::post('/cart/{cart}/decrement', [CartController::class, 'decrement'])
+    ->name('cart.decrement')
+    ->middleware('auth');
+
+
+
+
+
+
+
+
 
 
 

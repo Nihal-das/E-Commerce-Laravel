@@ -41,6 +41,13 @@
                             </div>
 
                             <!-- QUANTITY -->
+                            
+                            <form action="{{ route('cart.decrement', $cartItem->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="mt-7 rounded-lg bg-indigo-600 px-6 py-2
+                               font-semibold text-white hover:bg-indigo-700">-</button>
+                                </form>
+
                             <div class="text-center mt-5">
                                 <p class="text-gray-400">Qty</p>
                                 <p class="text-lg font-semibold text-white">
@@ -48,12 +55,39 @@
                                 </p>
                             </div>
 
+                             <form action="{{ route('cart.increment', $cartItem->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="mt-7 rounded-lg bg-indigo-600 px-6 py-2
+                               font-semibold text-white hover:bg-indigo-700">+</button>
+                                </form>
+                             
+
                             <!-- SUBTOTAL -->
                             <div class="text-right mt-5">
                                 <p class="text-gray-400">Subtotal</p>
                                 <p class="text-xl font-bold text-emerald-400">
                                     ₹{{ $cartItem->quantity * $cartItem->item->price }}
                                 </p>
+                            </div>
+
+                              <!-- REMOVE BUTTON -->
+                            <div class="mt-7">
+
+                <form method="POST" action="{{ route('cart.destroy' , $cartItem->id) }}">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex justify-end gap-4">
+
+                    <button
+                        type="submit"
+                        class="rounded-lg bg-indigo-600 px-6 py-2
+                               font-semibold text-white hover:bg-indigo-700">
+                        ❌
+                    </button>
+                </div>
+            </form>
+                               
                             </div>
                         </div>
                     @endforeach
