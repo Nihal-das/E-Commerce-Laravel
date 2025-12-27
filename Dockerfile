@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client \
     npm \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql zip exif pcntl bcmath opcache gd
+    && docker-php-ext-install pdo_mysql zip exif pcntl bcmath opcache gd tokenizer
 
 # Enable Apache rewrite module
 RUN a2enmod rewrite
@@ -37,11 +37,11 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader -
 # Copy rest of the application
 COPY . .
 
-# Install Node dependencies and build assets
-RUN npm install && npm run build
-
-# Set correct permissions
+# Set permissions before artisan runs
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Build frontend assets
+RUN npm install && npm run build
 
 # Expose Laravel port
 EXPOSE 10000
