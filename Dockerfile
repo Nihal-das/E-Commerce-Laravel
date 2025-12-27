@@ -1,14 +1,15 @@
+# Use PHP 8.2 + Apache
 FROM php:8.2-apache
 
+# Prevent Composer memory errors
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-# Install dependencies
+# Install PHP dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     git \
     curl \
-    npm \
     libonig-dev \
     libxml2-dev \
     default-mysql-client \
@@ -17,19 +18,21 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache rewrite
 RUN a2enmod rewrite
 
-# Working directory
+# Set working directory
 WORKDIR /var/www/html
 
-# Copy project
-COPY . .
+# Copy Laravel files only first (to use Docker cache for composer)
+COPY composer.json composer.lock ./
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Build Vue frontend
+# Now copy the rest of the project
+COPY . .
+
+# Install Node and build Vue frontend
+RUN apt-get install -y npm
 RUN npm install
 RUN npm run build
 
