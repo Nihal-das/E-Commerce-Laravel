@@ -115,9 +115,14 @@ Route::post('/admin/stock/{item}', [AdminController::class, 'store'])
     ->middleware('auth');
 
 
+Route::get('/admin/allusers', [AdminController::class, 'view_all'])
+    ->name('admin.users_view')
+    ->middleware('auth');
 
 
-//User section
+
+
+//////////////////////////////User section//////////////////////////////////////
 Route::get('/profile/{user}', [UserController::class, 'edit'])->name('users.edit');
 Route::patch('/profile/{user}', [UserController::class, 'update']);
 

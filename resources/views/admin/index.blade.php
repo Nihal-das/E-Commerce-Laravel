@@ -12,6 +12,12 @@
                 class="mt-6 inline-block rounded-lg bg-indigo-600 px-6 py-2 font-semibold text-white hover:bg-indigo-700"
                 >Add Stock</a
             >
+
+            <a
+                href="{{ route('admin.users_view') }}"
+                class="mt-6 inline-block rounded-lg bg-indigo-600 px-6 py-2 font-semibold text-white hover:bg-indigo-700"
+                >View All Users</a
+            >
         </div>
     </div>
 </x-layout>

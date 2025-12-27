@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -38,13 +39,20 @@ class AdminController extends Controller
     }
 
     public function store(Request $request, Item $item)
-{
-    $validated = $request->validate([
-        'add_quantity' => 'required|integer|min:1',
-    ]);
+    {
+        $validated = $request->validate([
+            'add_quantity' => 'required|integer|min:1',
+        ]);
 
-    $item->increment('stock_quantity', $validated['add_quantity']);
+        $item->increment('stock_quantity', $validated['add_quantity']);
 
-    return back()->with('success', 'Stock updated successfully!');
-}
+        return back()->with('success', 'Stock updated successfully!');
+    }
+
+    public function view_all()
+    {
+        $all_users = User::all();
+
+        return view('admin.show_all_users', ['users' => $all_users]);
+    }
 }
