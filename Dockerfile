@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
 # Apache → Laravel public/
 # -----------------------------
 RUN a2enmod rewrite \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
  && sed -i 's|/var/www/html|/var/www/html/public|g' \
     /etc/apache2/sites-available/000-default.conf \
     /etc/apache2/apache2.conf
@@ -34,6 +35,9 @@ RUN a2enmod rewrite \
 # Copy app (NO .env handling)
 # -----------------------------
 COPY . .
+
+# ❌ absolutely ensure no cached config survives
+RUN rm -f bootstrap/cache/*.php || true
 
 # -----------------------------
 # Composer (NO artisan here)
