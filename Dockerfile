@@ -36,7 +36,7 @@ RUN a2enmod rewrite \
 # -----------------------------
 COPY . .
 
-# ❌ absolutely ensure no cached config survives
+# ❌ remove old cached config
 RUN rm -f bootstrap/cache/*.php || true
 
 # -----------------------------
@@ -56,6 +56,13 @@ RUN composer install \
 # -----------------------------
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
+
+# -----------------------------
+# Symlink storage → public/storage
+# -----------------------------
+RUN php artisan storage:link || true \
+ && chown -R www-data:www-data public/storage \
+ && chmod -R 775 public/storage
 
 # -----------------------------
 # Frontend build
