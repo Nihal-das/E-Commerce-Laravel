@@ -29,10 +29,15 @@ RUN a2enmod rewrite \
  && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
  && sed -i 's|/var/www/html|/var/www/html/public|g' \
     /etc/apache2/sites-available/000-default.conf \
-    /etc/apache2/apache2.conf
+    /etc/apache2/apache2.conf \
+ && echo '<Directory /var/www/html/public/storage>
+    Options +FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>' >> /etc/apache2/apache2.conf
 
 # -----------------------------
-# Copy app (NO .env handling)
+# Copy app
 # -----------------------------
 COPY . .
 
@@ -40,7 +45,7 @@ COPY . .
 RUN rm -f bootstrap/cache/*.php || true
 
 # -----------------------------
-# Composer (NO artisan here)
+# Composer
 # -----------------------------
 RUN curl -sS https://getcomposer.org/installer | php \
     -- --install-dir=/usr/local/bin --filename=composer
@@ -52,17 +57,11 @@ RUN composer install \
     --no-scripts
 
 # -----------------------------
-# Permissions
-# -----------------------------
-RUN chown -R www-data:www-data storage bootstrap/cache \
- && chmod -R 775 storage bootstrap/cache
-
-# -----------------------------
-# Symlink storage → public/storage
+# Permissions + storage symlink
 # -----------------------------
 RUN php artisan storage:link || true \
- && chown -R www-data:www-data public/storage \
- && chmod -R 775 public/storage
+ && chown -R www-data:www-data storage bootstrap/cache public/storage \
+ && chmod -R 775 storage bootstrap/cache public/storage
 
 # -----------------------------
 # Frontend build
