@@ -27,7 +27,7 @@
 
 
             <!-- FORM -->
-            <div class="mx-auto max-w-lg py-24 sm:py-32 lg:py-40 text-center">
+            <div class="mx-auto max-w-lg py-24 sm:py-32 lg:py-40 text-center" autocomplete="on">
                 <form method="post"
                       action="{{ route('items.update', $item->id) }}"
                       enctype="multipart/form-data"
@@ -52,6 +52,7 @@
                         <input
                             type="text"
                             name="item_name"
+                            autocomplete="off"
                             value="{{ $item->item_name }}"
                             class="mt-2 w-full rounded-md bg-white/5 px-4 py-2 text-white
                                    focus:outline-2 focus:outline-indigo-500"
@@ -67,6 +68,7 @@
                         <input
                             type="number"
                             name="price"
+                            autocomplete="off"
                             value="{{ $item->price }}"
                             class="mt-2 w-full rounded-md bg-white/5 px-4 py-2 text-white
                                    focus:outline-2 focus:outline-indigo-500"

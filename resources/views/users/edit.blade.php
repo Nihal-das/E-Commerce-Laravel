@@ -28,6 +28,7 @@
             <div class="mx-auto max-w-lg py-24 sm:py-32 lg:py-40 text-center">
                 <form method="post"
                      action="/profile/{{ $user->id }}"
+                     autocomplete="on"
                       enctype="multipart/form-data"
                       class="space-y-10">
                       @method('PATCH')
@@ -50,6 +51,7 @@
                         <input
                             type="text"
                             name="name"
+                            autocomplete="off"
                             value="{{ $user->name }}"
                             class="mt-2 w-full rounded-md bg-white/5 px-4 py-2 text-white
                                    focus:outline-2 focus:outline-indigo-500"
@@ -64,6 +66,7 @@
                         <input
                             type="number"
                             name="phone_number"
+                            autocomplete="off"
                             value="{{ $user->phone_number }}"
                             class="mt-2 w-full rounded-md bg-white/5 px-4 py-2 text-white
                                    focus:outline-2 focus:outline-indigo-500"
