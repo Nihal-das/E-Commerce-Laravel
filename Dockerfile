@@ -50,8 +50,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Safe to run artisan now
-RUN php artisan key:generate --force \
-    && php artisan package:discover --ansi
+RUN php artisan package:discover --ansi
 
 # -----------------------------------
 # Permissions
