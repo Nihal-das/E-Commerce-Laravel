@@ -29,26 +29,27 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 RUN a2enmod rewrite
 
 # -----------------------------
-# Laravel ENV (CRITICAL FIX)
+# Copy FULL app FIRST (artisan must exist)
+# -----------------------------
+COPY . .
+
+# -----------------------------
+# ENV file
 # -----------------------------
 COPY .env.example .env
 
 # -----------------------------
 # Composer
 # -----------------------------
-COPY composer.json composer.lock ./
 RUN curl -sS https://getcomposer.org/installer | php \
     -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# IMPORTANT: disable scripts here
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# Generate APP_KEY so package:discover doesn't die
+# Now artisan exists → safe to run
 RUN php artisan key:generate --force
-
-# -----------------------------
-# App Source
-# -----------------------------
-COPY . .
+RUN php artisan package:discover --ansi
 
 # -----------------------------
 # Permissions
