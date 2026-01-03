@@ -62,14 +62,6 @@
        <a href="/admin" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Dashboard</a>
        @endif
 
-        <a href="{{ route('cart.show') }}" class="z-52 {{ request()->is('/cart') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}">My Cart</a>
-    @if (! $cartCount == 0)
-        <div class="absolute top-4 right-22 flex items-center justify-center w-6 h-6 bg-red-700 text-white text-xs font-bold rounded-full border border-amber-50">
-    {{ $cartCount }}
-    </div>
-    @endif
-      
-      
         <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">My Order</a>
        <form method="post" action="/logout">
                     @csrf
@@ -132,6 +124,12 @@
                                         <a href="/admin" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Dashboard</a>
                                     @endif
 
+                                    <a href="{{ route('cart.show') }}" class="z-52 {{ request()->is('/cart') ? 'px-4 py-2 -mt-2 bg-black rounded-2xl' : ''}}">My Cart</a>
+                                    @if (! $cartCount == 0)
+                                        <div class="absolute top-4 right-22 flex items-center justify-center w-6 h-6 bg-red-700 text-white text-xs font-bold rounded-full border border-amber-50">
+                                    {{ $cartCount }}
+                                    </div>
+                                    @endif
                                    
                                 </div>
                                 <div class="py-6">
