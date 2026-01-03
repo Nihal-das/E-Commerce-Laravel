@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        @vite(['resources/js/app.ts'])
+<head>
+    <meta charset="UTF-8" />
 
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <!-- Mobile-first viewport (already good, keep it) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-         <title>{{ $heading ?? 'E-commerce' }}</title>
-    </head>
-    <body>
-        
-            
-        
-        @auth
-        @if (! request()->is('success'))
-            <x-nav></x-nav>
-            @endif
-        @endauth
-        
-       {{ $slot }}
+    @vite(['resources/js/app.ts'])
 
-    
-       
- 
- 
-    </body>
+    <!-- Tailwind (CDN only if you're prototyping) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+
+    <title>{{ $heading ?? 'E-commerce' }}</title>
+</head>
+
+<body
+    class="min-h-screen bg-gray-900 text-gray-100
+           antialiased overflow-x-hidden">
+
+    @auth
+        @if (!request()->is('success'))
+            <x-nav />
+        @endif
+    @endauth
+
+    <!-- Page content -->
+    <main class="relative">
+        {{ $slot }}
+    </main>
+
+</body>
 </html>

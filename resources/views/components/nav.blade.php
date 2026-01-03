@@ -1,5 +1,5 @@
 <div class="relative">
-    <header class=" fixed inset-x-0 top-0 z-50 shadow-lg rounded-b-xl">
+    <header class="bg-gray-900 fixed inset-x-0 top-0 z-50 shadow-lg rounded-b-xl">
         <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
             <div class="flex lg:flex-1">
                 <a href="https://nihal-das.vercel.app/" class="-m-2 p-1.5 -mt-4">

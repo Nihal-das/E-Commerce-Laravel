@@ -1,16 +1,16 @@
 <x-layout>
     <x-slot:heading>Your Cart</x-slot:heading>
 
-    <div class="bg-gray-900 min-h-screen py-16 pt-40">
-        <div class="mx-auto max-w-4xl">
+    <div class="min-h-screen bg-gray-900 px-4 py-10 sm:px-6 lg:px-12">
+        <div class="mx-auto max-w-4xl pt-28">
 
             @if ($cartItems->isEmpty())
-                <div class="rounded-xl bg-gray-800 p-8 text-center">
+                <div class="rounded-2xl bg-gray-800 p-8 text-center">
                     <p class="text-xl text-gray-300">
                         Your cart is empty 🛒
                     </p>
                     <a href="/"
-                       class="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-2
+                       class="mt-6 inline-block rounded-lg bg-indigo-600 px-6 py-2
                               font-semibold text-white hover:bg-indigo-700">
                         Continue Shopping
                     </a>
@@ -19,83 +19,95 @@
 
                 <div class="space-y-6">
                     @foreach ($cartItems as $cartItem)
-                        <div class="flex flex-row justify-between rounded-2xl
-                                    bg-gray-800 p-6 shadow-lg">
+                        <div
+                            class="flex flex-col gap-6 rounded-2xl
+                                   bg-gray-800 p-6 shadow-lg
+                                   sm:flex-row sm:items-center sm:justify-between">
 
                             <!-- IMAGE + NAME -->
-                            <div class="flex flex-[0.5] items-center gap-6">
+                            <div class="flex items-center gap-4 sm:flex-[2]">
                                 <img
                                     src="{{ asset('storage/' . $cartItem->item->image_path) }}"
-                                    class="h-24 w-24 rounded-xl object-cover"
+                                    class="h-20 w-20 rounded-xl object-cover sm:h-24 sm:w-24"
                                     alt="{{ $cartItem->item->item_name }}"
                                 />
 
                                 <div>
-                                    <h3 class="text-xl flex-[1.5] font-semibold text-white">
+                                    <h3 class="text-lg font-semibold text-white sm:text-xl">
                                         {{ $cartItem->item->item_name }}
                                     </h3>
-                                    <p class="text-gray-400 ">
+                                    <p class="text-sm text-gray-400">
                                         ₹{{ $cartItem->item->price }} each
                                     </p>
                                 </div>
                             </div>
 
-                            <!-- QUANTITY -->
-                            
-                            <form action="{{ route('cart.decrement', $cartItem->id) }}" method="POST">
+                            <!-- QUANTITY CONTROLS -->
+                            <div
+                                class="flex items-center justify-between
+                                       sm:justify-center sm:gap-4 mr-10 ">
+
+                                <form action="{{ route('cart.decrement', $cartItem->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="mt-7 rounded-lg bg-indigo-600 px-6 py-2
-                               font-semibold text-white hover:bg-indigo-700">-</button>
+                                    <button
+                                        type="submit"
+                                        class="rounded-lg bg-indigo-600 px-4 py-2
+                                               font-semibold text-white hover:bg-indigo-700">
+                                        −
+                                    </button>
                                 </form>
 
-                            <div class="text-center mt-5">
-                                <p class="text-gray-400">Qty</p>
-                                <p class="text-lg font-semibold text-white">
-                                    {{ $cartItem->quantity }}
-                                </p>
-                            </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-400">Qty</p>
+                                    <p class="text-lg font-semibold text-white">
+                                        {{ $cartItem->quantity }}
+                                    </p>
+                                </div>
 
-                             <form action="{{ route('cart.increment', $cartItem->id) }}" method="POST">
+                                <form action="{{ route('cart.increment', $cartItem->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="mt-7 rounded-lg bg-indigo-600 px-6 py-2
-                               font-semibold text-white hover:bg-indigo-700">+</button>
+                                    <button
+                                        type="submit"
+                                        class="rounded-lg bg-indigo-600 px-4 py-2
+                                               font-semibold text-white hover:bg-indigo-700">
+                                        +
+                                    </button>
                                 </form>
-                             
-
-                            <!-- SUBTOTAL -->
-                            <div class="text-right mt-5">
-                                <p class="text-gray-400">Subtotal</p>
-                                <p class="text-xl font-bold text-emerald-400">
-                                    ₹{{ $cartItem->quantity * $cartItem->item->price }}
-                                </p>
                             </div>
 
-                              <!-- REMOVE BUTTON -->
-                            <div class="mt-7">
+                            <!-- PRICE + REMOVE -->
+                            <div
+                                class="flex items-center justify-start gap-4
+                                       sm:flex-col sm:items-end sm:gap-2 ">
 
-                <form method="POST" action="{{ route('cart.destroy' , $cartItem->id) }}">
-                @csrf
-                @method('DELETE')
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-400">Subtotal</p>
+                                    <p class="text-xl font-bold text-emerald-400">
+                                        ₹{{ $cartItem->quantity * $cartItem->item->price }}
+                                    </p>
+                                </div>
 
-                <div class="flex justify-end gap-4">
-
-                    <button
-                        type="submit"
-                        class="rounded-lg bg-indigo-600 px-6 py-2
-                               font-semibold text-white hover:bg-indigo-700">
-                        ❌
-                    </button>
-                </div>
-            </form>
-                               
+                                <form method="POST" action="{{ route('cart.destroy', $cartItem->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button
+                                        type="submit"
+                                        class="rounded-lg bg-red-600 px-3 py-2
+                                               text-sm font-semibold text-white
+                                               hover:bg-red-700">
+                                        REMOVE 
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
                 <!-- TOTAL -->
-                <div class="mt-10 flex justify-between items-center
-                            rounded-2xl bg-gray-800 p-6">
+                <div
+                    class="mt-10 flex flex-col gap-4
+                           rounded-2xl bg-gray-800 p-6
+                           sm:flex-row sm:items-center sm:justify-between">
                     <p class="text-2xl font-semibold text-white">
                         Total
                     </p>
@@ -105,22 +117,23 @@
                 </div>
 
                 <!-- ACTIONS -->
-                <div class="mt-8 flex justify-end gap-6">
-                   <a href="/"
-                       class="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-2
-                              font-semibold text-white hover:bg-indigo-700">
+                <div
+                    class="mt-8 flex flex-col gap-4
+                           sm:flex-row sm:justify-end sm:gap-6">
+                    <a href="/"
+                       class="rounded-lg bg-indigo-600 px-6 py-2
+                              text-center font-semibold text-white hover:bg-indigo-700">
                         Continue Shopping
                     </a>
 
                     <a href="/checkout"
-                       class="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-2
-                              font-semibold text-white hover:bg-indigo-700">
+                       class="rounded-lg bg-indigo-600 px-6 py-2
+                              text-center font-semibold text-white hover:bg-indigo-700">
                         Checkout
                     </a>
                 </div>
 
             @endif
-
         </div>
     </div>
 </x-layout>
