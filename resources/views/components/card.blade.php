@@ -83,3 +83,7 @@
         </p>
     @endif
 </div>
+
+{{-- <div class="mt-12 flex justify-center">
+    {{ $items->links() }}
+</div> --}}

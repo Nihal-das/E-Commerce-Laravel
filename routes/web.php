@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [ItemController::class, 'show_all'])->name('items.show')
     ->middleware('auth');
@@ -24,25 +25,30 @@ Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show_on
     ->middleware('auth');
 
 Route::get('/item/edit/{item}', [ItemController::class, 'edit'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware([AdminMiddleware::class]);
 
 Route::patch('/item/edit/{item}', [ItemController::class, 'update'])
     ->name('items.update')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware([AdminMiddleware::class]);
 
 Route::get('/uploads', [ItemController::class, 'show_upload'])
     ->middleware('auth');
 
 Route::post('/uploads', [ItemController::class, 'upload'])
     ->middleware('auth')
+    ->middleware([AdminMiddleware::class])
     ->name('items.upload');
 
 Route::get('/items/export/excel', [ItemController::class, 'exportExcel'])
     ->middleware('auth')
+    ->middleware([AdminMiddleware::class])
     ->name('items.download_excel');
 
 Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])
     ->middleware('auth')
+    ->middleware([AdminMiddleware::class])
     ->name('items.download_pdf');;
 
 
@@ -123,19 +129,23 @@ Route::get('/admin', [AdminController::class, 'index']);
 
 Route::get('/admin/reports', [AdminController::class, 'report'])
     ->name('admin.reports')
+    ->middleware([AdminMiddleware::class])
     ->middleware('auth');
 
 Route::get('/admin/stock', [AdminController::class, 'show'])
     ->name('admin.show_stock')
+    ->middleware([AdminMiddleware::class])
     ->middleware('auth');
 
 Route::post('/admin/stock/{item}', [AdminController::class, 'store'])
     ->name('admin.store')
+    ->middleware([AdminMiddleware::class])
     ->middleware('auth');
 
 
 Route::get('/admin/allusers', [AdminController::class, 'view_all'])
     ->name('admin.users_view')
+    ->middleware([AdminMiddleware::class])
     ->middleware('auth');
 
 

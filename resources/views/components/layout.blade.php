@@ -32,3 +32,29 @@
 
 </body>
 </html>
+
+
+ {{-- use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
+
+class ImageUpload extends Model
+{
+    protected $fillable = ['file_name', 'file_path', 'user_id'];
+
+    // Accessor for created_at
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->format('d M Y, h:i A')
+        );
+    }
+
+    // Optional: accessor for updated_at
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->diffForHumans()
+        );
+    }
+}
+ --}}

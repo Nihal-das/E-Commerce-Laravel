@@ -31,6 +31,7 @@ class ItemController extends Controller
             $query->where('item_name', 'like', '%' . $request->search . '%');
         }
 
+        // $all_items = $query->simplePaginate(12); // Simple pagination
         $all_items = $query->get();
 
         $cartCount = Cart::where('user_id', Auth::id())->count();
