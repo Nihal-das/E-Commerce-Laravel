@@ -55,8 +55,8 @@
     <div class="py-1">
       <a href="/profile/{{ auth()->user()->id }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Profile</a>
 
-
-       @if(auth()->user() && auth()->user()->role === 1)
+{{-- ->middleware([AdminMiddleware::class]) --}}
+       @if(auth()->user())
        <a href="{{ route('items.create') }}" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Add Item</a>
        <a href="/uploads" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">upload file</a>
        <a href="/admin" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden">Dashboard</a>
