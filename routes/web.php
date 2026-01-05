@@ -16,10 +16,12 @@ Route::get('/', [ItemController::class, 'show_all'])->name('items.show')
     ->middleware('auth');
 
 Route::get('/create', [ItemController::class, 'create'])->name('items.create')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware([AdminMiddleware::class]);
 
 Route::post('/create', [ItemController::class, 'store'])->name('items.store')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware([AdminMiddleware::class]);
 
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show_one')
     ->middleware('auth');
@@ -34,7 +36,8 @@ Route::patch('/item/edit/{item}', [ItemController::class, 'update'])
     ->middleware([AdminMiddleware::class]);
 
 Route::get('/uploads', [ItemController::class, 'show_upload'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware([AdminMiddleware::class]);
 
 Route::post('/uploads', [ItemController::class, 'upload'])
     ->middleware('auth')
