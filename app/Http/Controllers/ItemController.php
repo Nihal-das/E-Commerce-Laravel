@@ -245,4 +245,22 @@ class ItemController extends Controller
 
         return $pdf->download('items.pdf');
     }
+
+    public function image_view($id)
+    {
+        $item = Item::findOrFail($id);
+
+        $path = storage_path('app/public/' . $item->image_path);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path, [
+            'Content-Type'  => mime_content_type($path),
+            'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+            'Pragma'        => 'no-cache',
+            'Expires'       => '0',
+        ]);
+    }
 }

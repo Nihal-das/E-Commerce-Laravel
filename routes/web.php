@@ -54,7 +54,9 @@ Route::get('/items/export/pdf', [ItemController::class, 'exportPdf'])
     ->middleware([AdminMiddleware::class])
     ->name('items.download_pdf');;
 
-
+Route::get('/image/view/{id}', [ItemController::class, 'image_view'])
+        ->name('image.view')
+        ->middleware('auth');
 
 
 ///////////////////////CART////////////////////////////////

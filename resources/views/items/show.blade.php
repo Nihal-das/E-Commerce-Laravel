@@ -13,7 +13,7 @@
         
         <!-- Item Image -->
         <div class="w-full h-[24rem] lg:w-[28rem] bg-gray-800 shadow-2xl rounded-2xl overflow-hidden my-auto">
-            <img src="{{ asset('storage/' . $item->image_path) }}" 
+            <img src="{{ route('image.view', $item->id) }}" 
                  alt="{{ $item->item_name }}" 
                  class="w-full h-[24rem] object-cover hover:scale-105 transition-transform duration-300" />
         </div>

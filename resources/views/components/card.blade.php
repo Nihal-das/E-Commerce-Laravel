@@ -32,7 +32,7 @@
 
                 <a href="/item/{{ $item->id }}" class="block">
                     <img
-                        src="{{ asset('storage/' . $item->image_path) }}"
+                        src="{{ route('image.view', $item->id) }}"
                         alt="{{ $item->item_name }}"
                         class="h-48 w-full object-cover
                                transition-transform duration-300
